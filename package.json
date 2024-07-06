@@ -2,7 +2,7 @@
   "name": "zasbe",
   "version": "1.0.0",
   "description": "a backend",
-  "type": "module",
+  "type":"commonjs",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js"
@@ -16,5 +16,10 @@
   "devDependencies": {
     "nodemon": "^2.0.22",
     "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.5"
   }
 }

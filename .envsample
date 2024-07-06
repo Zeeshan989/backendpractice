@@ -1,0 +1,2 @@
+PORT=8000
+MONGODB_URI=mongodb+srv://zeeshanaslam7999:zeeshancluster@zeeshancluster.13wq094.mongodb.net/?retryWrites=true&w=majority&appName=ZeeshanCluster
