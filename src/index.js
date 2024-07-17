@@ -1,5 +1,7 @@
 
 dotenv=require('dotenv').config()
+express=require('express')
+const app=express()
 
 
 connectDB=require('./db/index.js')
