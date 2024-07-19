@@ -1,4 +1,4 @@
-mongoose=require('mongoose')
+import mongoose, {Schema} from "mongoose";
 
 
 const connectDB=async()=>{
@@ -11,4 +11,6 @@ const connectDB=async()=>{
         process.exit(1)
     }
 }
-module.exports=connectDB;
+
+export default connectDB
+

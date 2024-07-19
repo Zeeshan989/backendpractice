@@ -1,5 +1,5 @@
-const { v2: cloudinary } = require('cloudinary');
-const fs=require('fs')
+import {v2 as cloudinary} from "cloudinary"
+import fs from "fs"
 
 
 // Configuration
@@ -21,7 +21,8 @@ const uploadedfile=await cloudinary.uploader
     localfilePath, {
         resource_type:"auto"
     })
-    console.log("File is uploaded on cloudinary",uploadResult)   
+    fs.unlinkSync(localfilePath) //remove the locally saved temporary file as it has already uploaded file to cloundinary.
+ 
     return uploadedfile
     } catch (error) {
         console.log(error);
@@ -30,4 +31,4 @@ const uploadedfile=await cloudinary.uploader
     }
 }
 
-module.export=uploadResult
+export {uploadResult}
