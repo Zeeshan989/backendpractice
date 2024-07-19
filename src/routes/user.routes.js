@@ -5,6 +5,8 @@ import { loginUser } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/authentication.middleware.js";
 import {logoutUser} from "../controllers/user.controller.js"
 import {refreshToken} from "../controllers/user.controller.js"
+import {Updatepassword} from "../controllers/user.controller.js"
+import { UpdateAvatar } from "../controllers/user.controller.js";
 
 const router = Router();
 
@@ -26,6 +28,10 @@ router.route('/login').post(
 
 router.route('/logout').post(verifyJWT,logoutUser)
 router.route('/refreshtoken').post(verifyJWT,refreshToken)
+router.route('/updatepassword').post(verifyJWT,Updatepassword)
+router.route('/updateavatar').post(verifyJWT,
+    upload.single('newavatar'),
+    UpdateAvatar)
 
 
 export default router

@@ -4,6 +4,7 @@ import {uploadResult} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {User} from "../models/users.model.js"
 import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 
 
@@ -210,6 +211,59 @@ const refreshToken=asyncHandler(async(req,res)=>{
 
 )
 
+const Updatepassword=asyncHandler(async(req,res)=>{
+
+    const {oldpassword,newpassword} = req.body
+
+    const usr=await User.findById(
+        req.user._id
+    )
+    const passmatch=await usr.isPasswordCorrect(oldpassword)
+   if(passmatch==false){throw new ApiError(400,'Wrong Current Password')}
+   else{
+        usr.password=newpassword
+        await usr.save();
+        
+    };
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,{},'Password Updated Successfully'
+        )
+    )
+
+   }
+)
+
+const UpdateAvatar=asyncHandler(async(req,res)=>{
+    console.log(req.file)
+    
+    const newavatarLocalPath = req.file?.path;
+    if (!newavatarLocalPath) {
+        throw new ApiError(400, "Avatar file is required")
+    }
+
+    const newavatar = await uploadResult(newavatarLocalPath)
+    const usrr=await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set:{
+                avatar: newavatar.url
+            }
+        },
+        {new: true}
+    ).select("-password")
+    throw new ApiResponse(200,{},'Updated avatar')
+
+
+   }
+)
+
+    
+
+
+
 
 
 
@@ -219,5 +273,7 @@ export {
     registerUser,
     loginUser,
     logoutUser,
-    refreshToken
+    refreshToken,
+    Updatepassword,
+    UpdateAvatar
 } // Ensure it's exported as an object
